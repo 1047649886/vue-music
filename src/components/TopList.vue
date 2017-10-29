@@ -1,9 +1,9 @@
 <template>
-  	<yd-tab :callback="test">
-	    <yd-tab-panel label="个性推荐" class="page"><Recommend></Recommend></yd-tab-panel>
+  	<yd-tab>
+	    <yd-tab-panel label="个性推荐" class="page" active><Recommend></Recommend></yd-tab-panel>
 	    <yd-tab-panel label="歌单" class="page"><Songs></Songs></yd-tab-panel>
 	    <yd-tab-panel label="主播电台" class="page"></yd-tab-panel>
-	    <yd-tab-panel label="排行榜" class="page" active><Rank></Rank></yd-tab-panel>
+	    <yd-tab-panel label="排行榜" class="page" ><Rank></Rank></yd-tab-panel>
 	</yd-tab>
 </template>
 <script>

@@ -26,7 +26,7 @@
 			<TopList></TopList>
 		</div>
 		<div v-show="search">
-			<h3>hi</h3>
+			<h3>{{search}}</h3>
 			<ul class="myUl" >
 				<!-- <span>{{searchList}}</span> -->
 			</ul>

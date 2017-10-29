@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"/>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive" />
   </div>
 </template>
 
@@ -19,5 +22,6 @@ export default {
   color: #2c3e50;
   width:100%;
   height:100%;
+  font-size: .4rem;
 }
 </style>
