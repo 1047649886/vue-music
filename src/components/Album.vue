@@ -67,11 +67,6 @@
 <script>
 export default{
 	name:'Album',
-	// beforeRouteEnter (to, from, next) {
- //    getPost(to.params.id, (err, post) => {
- //      next(vm => vm.setData(err, post))
- //    })
- //  	},
 	created(){
 		let index = this.$route.params.index;
 		console.log(this.$route.params.index);

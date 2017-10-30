@@ -27,46 +27,14 @@
 				urls[i] ='/api/top/list?idx='+i;
 			}
 			let requests = urls.map( url => axios.get(url));
-			axios.all(requests)
-		    .then(function(gets){
+			axios.all(requests).then(function(gets){
 		    	let result = gets.map( (res) => res.data.result);
 		    	vm.$store.commit('setRankstorage',result);
-		    	console.log(result);
+		    	//console.log(result);
+		    }).catch(function(err){
+		    	//console.log(err);
 		    })
-		    .catch(function(err){
-		    	console.log(err);
-		    })
-		       //console.log(perms);
-		// 	//axios.all()
-		// 	// axios.get('/api/top/list', {
-		//  //    params: {
-		//  //      idx: i
-		//  //    }
-		//  //  })
-		//  //  .then(function (response) {
-		//  //  	let result  = response.data.result;
-		//  //    console.log(result);
-		//  //  })
-		//  //  .catch(function (error) {
-		//  //    console.log(error);
-		//  //  });
 		},
-		// created(){
-		// 	for(let i=2;i<4;i++){
-		// 		axios.get('/api/top/list', {
-		// 	    params: {
-		// 	      idx: i
-		// 	    }
-		// 	  })
-		// 	  .then(function (response) {
-		// 	  	let result  = response.data.result;
-		// 	    console.log(result);
-		// 	  })
-		// 	  .catch(function (error) {
-		// 	    console.log(error);
-		// 	  });
-		// 	}
-		// },
 		methods:{
 			jump(){
 				this.$router.push('/findMusic');

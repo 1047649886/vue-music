@@ -24,14 +24,14 @@ export default{
 		this.Songstorage = this.$store.state.Songstorage;
 			if(this.Songstorage.length<1){
 			let vm = this;
-			axios.get('/api/top/playlist/highquality?limit=10')
-			.then( (res) => {
+			axios.get('/api/top/playlist/highquality?limit=10').then(function(res){
 				let result = res.data.playlists;
 				vm.$store.commit('setSongstorage',result);
-				this.loadFinshed  = true;
+				vm.loadFinshed  = true;
 				console.log(result)
-			})
-			.catch( e => console.log(e));
+			}).catch( function(e){
+				console.log(e)
+			});
 		}
 	},
 	data(){
@@ -46,11 +46,11 @@ export default{
 		}
 	},
 	watch:{
-		Songstorage:function(){
-			if(this.Songstorage.length>0){
-				this.loadFinshed = true;
-			}
-		}
+		// Songstorage:function(){
+		// 	if(this.Songstorage.length>0){
+		// 		this.loadFinshed = true;
+		// 	}
+		// }
 	}
 }
 </script>

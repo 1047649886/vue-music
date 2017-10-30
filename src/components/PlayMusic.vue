@@ -38,15 +38,14 @@ export default{
 			return axios.get(item);
 		});
 
-		axios.all(request)
-		.then( axios.spread( (music,lyric) =>{
+		axios.all(request).then(axios.spread( function(music,lyric){
 
 			let musics = music.data.data[0];
 			let lyrics = lyric.data.lrc;
 
-			console.log(musics);
-			console.log(lyrics);
-			console.log(Playing);
+			// console.log(musics);
+			// console.log(lyrics);
+			// console.log(Playing);
 
 			vm.songs[0].title = Playing.name;
 			vm.songs[0].author = author;
@@ -57,10 +56,9 @@ export default{
 			vm.loadFinshed = true;
 			//console.log(vm.songs[0].lrc);
 			console.log(vm.songs[0]);
-		}))
-		.catch( error => console.log(error) )
-
-
+		})).catch( function(error ){
+			console.log(error);
+		})
 	},
 	mounted() {
         // let aplayer = this.$refs.player.control;

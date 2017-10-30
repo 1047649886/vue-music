@@ -57,16 +57,14 @@ export default{
 		let vm = this;
 		vm.id = this.$route.params.id;
 		vm.kind = this.$route.params.kind;
-		axios.get('/api/comment/'+vm.kind+'?id='+this.id+'&limit=10')
-		.then( (res) =>{
+		axios.get('/api/comment/'+vm.kind+'?id='+this.id+'&limit=10').then( (res) =>{
 			vm.comment = res.data;
 			vm.hotComments = res.data.hotComments;
 			vm.comments = res.data.comments;
-			console.log(res.data);
-			console.log(vm.hotComments);
-			console.log(vm.comments);
-		})
-		.catch( (error) =>console.log(error) )
+			// console.log(res.data);
+			// console.log(vm.hotComments);
+			// console.log(vm.comments);
+		}).catch( (error) =>console.log(error) )
 		console.log(this.id);
 	},
 	data(){
@@ -135,14 +133,14 @@ export default{
 		loadList(){
 			let vm = this;
 			this.id = this.$route.params.id;
-			axios.get('/api/comment/'+this.kind+'?id='+this.id+'&offset=10')
-			.then( (res) =>{
-				res.data.comments.forEach( (item) => {
+			axios.get('/api/comment/'+this.kind+'?id='+this.id+'&offset=10').then(function(res){
+				res.data.comments.forEach(function(item){
 					vm.comments.push(item);
 					return;
 				});
-			})
-			.catch( (error) =>console.log(error) )
+			}).catch(function(e){
+				console.log(e);
+			} )
 			this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
 			//this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
 		}
