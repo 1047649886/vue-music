@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div v-show="loadFinshed">
-			<yd-navbar title="dd" fixed >
+			<yd-navbar :title="songs[0].title +'--'+songs[0].author" fixed >
 		       <span slot="left" @click="goBack">
 		       	   <yd-navbar-back-icon></yd-navbar-back-icon>
 		       </span>

@@ -23,7 +23,7 @@
 		created(){
 			let vm = this;
 			let urls = [];
-			for(let i=0;i<5;i++){
+			for(let i=0;i<3;i++){
 				urls[i] ='/api/top/list?idx='+i;
 			}
 			let requests = urls.map( url => axios.get(url));

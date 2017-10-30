@@ -1,7 +1,7 @@
 <template>
 
 	<div class="box">
-		<div v-show="loadFinshed">
+		<div v-if="loadFinshed">
 			<img src="../../static/jpg/00.png" alt="" height="300px" width="100%">
 			<yd-pullrefresh :callback="loadList" ref="pullrefreshDemo">
 				<yd-list theme="1">
