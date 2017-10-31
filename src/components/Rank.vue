@@ -77,15 +77,15 @@ export default {
         padding-bottom: 2rem;
 }
 .mytitle{
-    height:.8rem;
-    padding-top:.3rem;
+    height:.5rem;
+    padding-top:.1rem;
     text-align:left;
     background:#f5f5f5;
     color:#888;
 }
 .click{
     width:100%;
-    height:4rem;
+    height:2.5rem;
     margin-bottom: .1rem;
 }
 .click:hover{
@@ -103,7 +103,7 @@ export default {
 }
 .mylist{
     display: inline-block;
-    height: 4rem;
+    height:3rem;
     width:33%;
     float:left;
     margin-bottom:.5rem;
@@ -111,12 +111,12 @@ export default {
 }
 .songsBox{
     text-align:left;
+    padding-right:.1rem;
 }
 .songs{
-    margin-top:.4rem;
-    margin-left:.4rem;
-    width:90%;
-    text-overflow: ellipsis;
+    margin:.2rem 0 0 .2rem;
+    width:100%;
+    text-overflow:ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }

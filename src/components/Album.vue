@@ -5,37 +5,38 @@
 	            <yd-navbar-back-icon></yd-navbar-back-icon>
 	        </router-link>
     	</yd-navbar>
+
     	<div class="myBox">
     		<div class="face">
-    			<img :src="mySongs.coverImgUrl" height="450px" width="100%">
+    			<img :src="mySongs.coverImgUrl" height="250px" width="100%">
     			<div class="faceIcon" @click="message">
     				<yd-icon name="question"></yd-icon>
     			</div>
 	    		<ul class="myUl">
     				<li>
     					<router-link :to="{path:'/comment/playlist/'+mySongs.commentThreadId.slice(7)}" >
-    						<yd-icon name="feedback" size=".6rem"></yd-icon>
+    						<yd-icon name="feedback" size=".3rem"></yd-icon>
     						评论
     						 <p><yd-badge type="danger">{{mySongs.commentCount|Fixed}}</yd-badge></p>
     					</router-link>
     				</li>
     				<li>
-    					<router-link to="/#" >
-    						<yd-icon name="play" size=".6rem"></yd-icon>
+    					<router-link to="#" >
+    						<yd-icon name="play" size=".3rem"></yd-icon>
     						播放
     						 <p class="font"><yd-badge type="danger">{{mySongs.playCount|Fixed}}</yd-badge></p>
     					</router-link>
     				</li>
     				<li>
-    					<router-link to="/#" >
-    						<yd-icon name="share2" size=".6rem"></yd-icon>
+    					<router-link to="#" >
+    						<yd-icon name="share2" size=".3rem"></yd-icon>
     						分享
     						 <p><yd-badge type="danger">{{mySongs.shareCount|Fixed}}</yd-badge></p>
     					</router-link>
     				</li>
     				<li>
-    					<router-link to="/#" >
-    						<yd-icon name="like-outline" size=".6rem"></yd-icon>
+    					<router-link to="#" >
+    						<yd-icon name="like-outline" size=".3rem"></yd-icon>
     						收藏
     						 <p><yd-badge type="danger" >{{mySongs.subscribedCount|Fixed}}</yd-badge></p>
     					</router-link>
@@ -51,7 +52,7 @@
             		</div>
             		<div class="right">
             			<div class="icon">
-            				 <yd-icon name="play" size=".8rem" color="#FF685D" ></yd-icon>
+            				 <yd-icon name="play" size=".5rem" color="#FF685D" ></yd-icon>
             			</div>
             			<p>{{item.name}} </p>
             			<p style="color:rgba(213, 106, 73, 0.96)">
@@ -109,14 +110,14 @@ export default{
 .faceIcon{
 	position: absolute;
 	top:1.5rem;
-	right:1rem;
+	right:.4rem;
 	color:#fff;
 }
 
 /*歌曲布局*/
 .myLink{
 	display: flex;
-	height:1.6rem;
+	height:1.1rem;
 	width:100%;
 	background: #fff;
 	text-align: left;
@@ -124,8 +125,8 @@ export default{
 
 .left{
 	padding-left:.2rem;
-	padding-top:.5rem;
-	width:1rem;
+	padding-top:.3rem;
+	width:.8rem;
 	color:rgba(213, 106, 73, 0.7);
 }
 .hot{
@@ -133,33 +134,33 @@ export default{
 }
 .right{
 	flex:1;
-	padding:.3rem 0;
+	padding:.2rem 0;
 	font-weight:bold;
 	border-bottom:1px solid #ccc;
+	font-size:.25rem;
 }
 .myLink:hover{
 	background:#f8f8f8;
 }
 .icon{
 	float:right;
-	margin:0 1rem;
+	margin:0 .2rem;
 }
 .myUl{
 	position: absolute;
-	top:7rem;
+	top:4.5rem;
 	left:0;
 	list-style-type: none;
 	display:inline-flex;
 	color:#fff;
 }
 .myUl>li{
-
 	border: 1px solid #fff;
-	height:1.5rem;
-	width:2.6rem;
-	margin-left:.7rem;
+	height:1rem;
+	width:1.4rem;
+	margin-left:.4rem;
 	border-radius: .3rem;
-	padding:.4rem 0;
-	font-size:.4rem;
+	padding:.3rem 0;
+	font-size:.3rem;
 }
 </style>

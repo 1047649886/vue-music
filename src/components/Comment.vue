@@ -1,13 +1,13 @@
 <template>
 	<div>
-		<yd-navbar :title="'评论('+comment.total+')'" fixed v-show="loadFinshed">
+		<yd-navbar :title="'评论('+comment.total+')'" fixed v-show="loadFinshed" fontsize=".3rem">
 	       <span slot="left" @click="goBack">
 	       	   <yd-navbar-back-icon></yd-navbar-back-icon>
 	       </span>
     	</yd-navbar>
 
     	<div class="comment" v-show="loadFinshed">
-    		<div v-if="hotComments">
+    		<div v-if="hotComments.user">
 	    		<h3 class="title">热门评论</h3>
 	    		<div class="box" v-for="item in hotComments" slot="list">
 			    		<div class="left">
@@ -33,7 +33,7 @@
 	    			<div class="right">
 	    				<p class="nickName">{{ item.user.nickname}}
 	    					<span class="like">
-	    						{{ item.likedCount|Fixed }} <yd-icon name="good"></yd-icon>
+	    						{{ item.likedCount|Fixed }} <yd-icon name="good" size=".3rem"></yd-icon>
 	    					</span>
 	    				</p>
 	    				<p class="time">{{item.time|parseTime}}
@@ -151,32 +151,33 @@ export default{
 .comment{
 	margin-top:1rem;
 	text-align: left;
-	padding:.2rem;
+	padding:.1rem;
 }
 .box{
 	display: flex;
-	padding-top:.2rem;
+	padding-top:.1rem;
 }
 .left{
-	width:80px;
+	width:50px;
 }
 .img{
-	width:60px;
-	height:60px;
+	width:40px;
+	height:40px;
 	border: 1px solid #fff;
-	border-radius:30px;
+	border-radius:20px;
 }
 .right{
-	padding-bottom:.3rem;
+	padding-bottom:.1rem;
 	border-bottom:1px solid #ccc;
 	flex:1;
 }
 .nickName{
 	color:#9b8a8a;
 	width:100%;
+	font-size:.25rem;
 }
 .time{
-	font-size:.3rem;
+	font-size:.2rem;
 	margin-bottom: .4rem;
 }
 .like{

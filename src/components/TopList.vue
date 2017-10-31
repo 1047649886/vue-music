@@ -53,6 +53,8 @@ export default{
 </script>
 <style scoped>
 .page{
-	height: 1180px;
+
+	height: 440px;
+
 }
 </style>

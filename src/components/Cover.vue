@@ -45,14 +45,14 @@
 <style scoped>
 .timeout{
 	position: absolute;
-	bottom:1.5rem;
-	right:1.5rem;
-	width:1.5rem;
-	height: 1.5rem;
+	bottom:.4rem;
+	right:.4rem;
+	width:1rem;
+	height: 1rem;
 	border:1px solid red;
-	border-radius: .5rem;
+	border-radius:.5rem;
 	z-index:999;
-	font-size:.5rem;
+	font-size:.3rem;
 	padding:.3rem 0;
 	color:#fff;
 	background:#f44009;

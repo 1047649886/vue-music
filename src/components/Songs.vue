@@ -2,7 +2,7 @@
 
 	<div class="box">
 		<div v-if="loadFinshed">
-			<img src="../../static/jpg/00.png" alt="" height="300px" width="100%">
+			<img src="../../static/jpg/00.png" alt="" height="230px" width="100%">
 			<yd-pullrefresh :callback="loadList" ref="pullrefreshDemo">
 				<yd-list theme="1">
 		        	<yd-list-item v-for="item in Songstorage" class="myBox">
@@ -21,7 +21,7 @@
 export default{
 	name:'Songs',
 	created(){
-		this.Songstorage = this.$store.state.Songstorage;
+		    this.Songstorage = this.$store.state.Songstorage;
 			if(this.Songstorage.length<1){
 			let vm = this;
 			axios.get('/api/top/playlist/highquality?limit=10').then(function(res){
