@@ -7,7 +7,7 @@
     	</yd-navbar>
 
     	<div class="comment" v-show="loadFinshed">
-    		<div v-if="hotComments.user">
+    		<div v-if="hotComments.length>0">
 	    		<h3 class="title">热门评论</h3>
 	    		<div class="box" v-for="item in hotComments" slot="list">
 			    		<div class="left">
@@ -16,7 +16,7 @@
 		    			<div class="right">
 		    				<p class="nickName">{{ item.user.nickname}}
 		    					<span class="like">
-		    						{{ item.likedCount|Fixed }} <yd-icon name="good"></yd-icon>
+		    						{{ item.likedCount|Fixed }} <yd-icon name="good" size=".3rem"></yd-icon>
 		    					</span>
 		    				</p>
 		    				<p class="time">{{item.time|parseTime}}
@@ -40,9 +40,8 @@
 	    				<p>{{item.content|emoji}}</p>
 	    			</div>
 		    	</div>
-		    <span slot="loadingTip">正在加载中</span>
 <!--         	<img slot="loadingTip" src="../../static/source/loading.svg"/> -->
-	    	</yd-infinitescroll  :callback="loadList">
+	    	</yd-infinitescroll>
     	</div>
     	<div v-show="!loadFinshed">
             数据正在加载中……
@@ -58,6 +57,7 @@ export default{
 		vm.id = this.$route.params.id;
 		vm.kind = this.$route.params.kind;
 		axios.get('/api/comment/'+vm.kind+'?id='+this.id+'&limit=10').then( (res) =>{
+			console.log(res.data);
 			vm.comment = res.data;
 			vm.hotComments = res.data.hotComments;
 			vm.comments = res.data.comments;
@@ -87,21 +87,23 @@ export default{
 			let minute = date.getMinutes();
 
 			let myDate =new Date();
-			//一天内
-			if(day == myDate.getDay()){
-				//1小时内
-				if(hour == myDate.getHours()){
-					return minute+'分钟前';
+			if(year == myDate.getFullYear() &&month == myDate.getMonth()){
+				//一天内
+				if(day == myDate.getDay()){
+					//1小时内
+					if(hour == myDate.getHours()){
+						return myDate.getMinutes()-minute+'分钟前';
+					}
+					if(hour<10) hour = '0'+hour;
+					if(minute<10) minute = '0'+minute;
+					return hour+':'+minute;
 				}
-				if(hour<10) hour = '0'+hour;
-				if(minute<10) minute = '0'+minute;
-				return hour+':'+minute;
-			}
-			//昨天
-			if(day == myDate.getDay()-1){
-				if(hour<10) hour = '0'+hour;
-				if(minute<10) minute = '0'+minute;
-				return '昨天 '+hour+':'+minute;
+				//昨天
+				if(day == myDate.getDay()-1){
+					if(hour<10) hour = '0'+hour;
+					if(minute<10) minute = '0'+minute;
+					return '昨天 '+hour+':'+minute;
+				}
 			}
 			//其他时间
 			if(month<10)month='0'+month;

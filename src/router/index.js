@@ -44,7 +44,7 @@ export default new Router({
       meta:{keepAlive:false}
     },
     {
-      path:'/comment/:kind/:id',
+      path:'/comment/:kind/:id/',
       name:'Comment',
       component:Comment,
       meta:{keepAlive:false}
@@ -54,6 +54,13 @@ export default new Router({
       name:'PlayMusic',
       component:PlayMusic,
       meta:{keepAlive:false}
-    }
+    },
+    // {
+    //   path:'/music/:id/playing',
+    //   name:'PlayMusic',
+    //   component:PlayingMusic,
+    //   meta:{keepAlive:true}
+    // },
+
   ]
 })

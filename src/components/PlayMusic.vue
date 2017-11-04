@@ -1,11 +1,15 @@
 <template>
 	<div>
-		<div v-show="loadFinshed">
+		<div v-if="loadFinshed">
 			<yd-navbar :title="songs[0].title +'--'+songs[0].author" fixed fontsize=".3rem">
 		       <span slot="left" @click="goBack">
 		       	   <yd-navbar-back-icon></yd-navbar-back-icon>
 		       </span>
 	    	</yd-navbar>
+	    	<div class="comment" @click="getComment">
+	    		<yd-icon name="feedback"></yd-icon>
+	    		 <yd-badge type="hollow"><span>评论</span></yd-badge>
+	    	</div>
 	    <div @click="check" class="box" v-show="changeLrc">
 			<p v-for="(item,index) in lrc" class="lrc" >
 				<span v-if="index==lrcIndex" class='nowPlay'>{{item[1]}}</span>
@@ -21,7 +25,7 @@
 		</div>
 		</div>
         <div v-show="!loadFinshed">
-            数据正在加载中……
+          	首次加载数据，速度可能会慢一点，请等待
         </div>
 	</div>
 </template>
@@ -32,14 +36,26 @@ export default{
 	components: {'a-player': VueAplayer},
 	created(){
 		let vm  = this;
-		vm.id = this.$route.params.id;
+		let AllSingle = this.$store.state.AllSingle;
+		vm.songs[0].id = this.$route.params.id;
+
+		if(AllSingle.has(vm.songs[0].id))
+		{
+			this.songs[0] = AllSingle.get(vm.songs[0].id);
+			this.loadFinshed = true;
+			console.log(this.songs[0]);
+			console.log("客户端缓存了！");
+			return;
+		}
+
 		let Playing = this.$store.state.PlayMusic;
 		let author='';
-		Playing.artists.forEach( item => author=author+' '+item["name"]); 
-
+		let artists = Playing.artists?Playing.artists:Playing.ar;
+		artists.forEach( item => author=author+' '+item["name"]);
+		this.commentId = Playing.id;
 		let url=['/api/music/url?id=','/api/lyric?id='];
 		let request = url.map( item =>{
-			item+=vm.id;
+			item+=vm.songs[0].id;
 			return axios.get(item);
 		});
 
@@ -47,22 +63,29 @@ export default{
 
 			let musics = music.data.data[0];
 			let lyrics = lyric.data.lrc;
-			vm.songs[0].title = Playing.name;
+
+			console.log(musics);
+			vm.songs[0].title = Playing.name?Playing.name:Playing.al.name;
+			vm.songs[0].pic = Playing.album?Playing.album.picUrl:Playing.al.picUrl;
 			vm.songs[0].author = author;
 			vm.songs[0].url = musics.url;
-			vm.songs[0].pic = Playing.album.picUrl;
-			vm.songs[0].lrc = lyrics.lyric;
+
+			if(lyrics&&lyrics.lyric){
+				vm.songs[0].lrc = lyrics.lyric;
+			}else{
+				vm.songs[0].lrc = '[00:00.00]暂无歌词\n';
+			}
+			console.log(vm.$store.state.AllSingle);
+			vm.$store.commit('setAllSingle',vm.songs[0]);
 			vm.loadFinshed = true;
+
 		})).catch( function(error ){
 			console.log(error);
 		})
 	},
-	mounted() {
-
-    },
 	data(){
 		return {
-			id:'',
+			commentId:'',
 			loadFinshed:false,
 			changeLrc:false,
 			lrc:'',
@@ -73,7 +96,8 @@ export default{
 	              author: '',
 	              url: "",
 	              pic: '',
-	              lrc: ''
+	              lrc: '',
+	              id:''
 		        },
 	        ]
 		}
@@ -109,6 +133,9 @@ export default{
 				})
 			}
 		},
+		getComment(){
+			this.$router.push('/comment/music/'+this.commentId);
+		}
 	},
 }
 </script>
@@ -144,5 +171,14 @@ export default{
 	position: absolute;
 	bottom:0;
 	width:100%;
+}
+.comment{
+	position: absolute;
+	width:1rem;
+	height:1rem;
+	top:1.5rem;
+	right:.5rem;
+/*	border: 1px solid green;*/
+	color:#fff;
 }
 </style>

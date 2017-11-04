@@ -3,7 +3,7 @@
         <yd-tabbar-item title="发现音乐" link="/findMusic" >
             <yd-icon name="home" slot="icon" size=".5rem"></yd-icon>
         </yd-tabbar-item>
-        <yd-tabbar-item title="我的音乐" link="/userCenter" >
+      <!--   <yd-tabbar-item title="我的音乐" link="/userCenter" >
             <yd-icon name="ucenter" slot="icon" size=".5rem"></yd-icon>
         </yd-tabbar-item>
         <yd-tabbar-item title="朋友" link="/userCenter" >
@@ -11,7 +11,7 @@
         </yd-tabbar-item>
         <yd-tabbar-item title="账户" link="/userCenter" >
             <yd-icon name="ucenter" slot="icon" size=".5rem"></yd-icon>
-        </yd-tabbar-item>
+        </yd-tabbar-item> -->
     </yd-tabbar>
 </template>
 

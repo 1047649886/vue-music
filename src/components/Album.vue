@@ -1,68 +1,73 @@
 <template>
 	<div>
-		<yd-navbar :title="mySongs.name" fixed>
-	        <router-link to="/findMusic" slot="left">
-	            <yd-navbar-back-icon></yd-navbar-back-icon>
-	        </router-link>
-    	</yd-navbar>
+		<div v-if="loadFinshed">
+			<yd-navbar :title="mySongs.name" fixed>
+		        <router-link to="/findMusic" slot="left">
+		            <yd-navbar-back-icon></yd-navbar-back-icon>
+		        </router-link>
+	    	</yd-navbar>
 
-    	<div class="myBox">
-    		<div class="face">
-    			<img :src="mySongs.coverImgUrl" height="250px" width="100%">
-    			<div class="faceIcon" @click="message">
-    				<yd-icon name="question"></yd-icon>
-    			</div>
-	    		<ul class="myUl">
-    				<li>
-    					<router-link :to="{path:'/comment/playlist/'+mySongs.commentThreadId.slice(7)}" >
-    						<yd-icon name="feedback" size=".3rem"></yd-icon>
-    						评论
-    						 <p><yd-badge type="danger">{{mySongs.commentCount|Fixed}}</yd-badge></p>
-    					</router-link>
-    				</li>
-    				<li>
-    					<router-link to="#" >
-    						<yd-icon name="play" size=".3rem"></yd-icon>
-    						播放
-    						 <p class="font"><yd-badge type="danger">{{mySongs.playCount|Fixed}}</yd-badge></p>
-    					</router-link>
-    				</li>
-    				<li>
-    					<router-link to="#" >
-    						<yd-icon name="share2" size=".3rem"></yd-icon>
-    						分享
-    						 <p><yd-badge type="danger">{{mySongs.shareCount|Fixed}}</yd-badge></p>
-    					</router-link>
-    				</li>
-    				<li>
-    					<router-link to="#" >
-    						<yd-icon name="like-outline" size=".3rem"></yd-icon>
-    						收藏
-    						 <p><yd-badge type="danger" >{{mySongs.subscribedCount|Fixed}}</yd-badge></p>
-    					</router-link>
-    				</li>
-    			</ul>
-    		</div>
-    	 	<div v-for="(item,index) in mySongs.tracks">
-            	<div @click="play(item,index)" class="myLink">
-            		<div class="left">
-            			<span v-if="index<3" class="hot">0{{index+1}}</span>
-            			<span v-else-if="index<9">0{{index+1}}</span>
-            			<span v-else="index>=9">{{index+1}}</span>
-            		</div>
-            		<div class="right">
-            			<div class="icon">
-            				 <yd-icon name="play" size=".5rem" color="#FF685D" ></yd-icon>
-            			</div>
-            			<p>{{item.name}} </p>
-            			<p style="color:rgba(213, 106, 73, 0.96)">
-            				<small v-for="artist in item.artists">{{artist.name}}/</small>
-            				<small>{{item.name}}</small>
-            			</p>
-            		</div>
-            	</div>
-            </div>
-        </div>
+	    	<div class="myBox">
+	    		<div class="face">
+	    			<img :src="mySongs.coverImgUrl" height="250px" width="100%">
+	    			<div class="faceIcon" @click="message">
+	    				<yd-icon name="question"></yd-icon>
+	    			</div>
+		    		<ul class="myUl">
+	    				<li>
+	    					<router-link :to="{path:'/comment/playlist/'+mySongs.commentThreadId.slice(7)}" v-if="mySongs.commentThreadId">
+	    						<yd-icon name="feedback" size=".3rem"></yd-icon>
+	    						评论
+	    						 <p><yd-badge type="danger">{{mySongs.commentCount|Fixed}}</yd-badge></p>
+	    					</router-link>
+	    				</li>
+	    				<li>
+	    					<router-link to="#" >
+	    						<yd-icon name="play" size=".3rem"></yd-icon>
+	    						播放
+	    						 <p class="font"><yd-badge type="danger">{{mySongs.playCount|Fixed}}</yd-badge></p>
+	    					</router-link>
+	    				</li>
+	    				<li>
+	    					<router-link to="#" >
+	    						<yd-icon name="share2" size=".3rem"></yd-icon>
+	    						分享
+	    						 <p><yd-badge type="danger">{{mySongs.shareCount|Fixed}}</yd-badge></p>
+	    					</router-link>
+	    				</li>
+	    				<li>
+	    					<router-link to="#" >
+	    						<yd-icon name="like-outline" size=".3rem"></yd-icon>
+	    						收藏
+	    						 <p><yd-badge type="danger" >{{mySongs.subscribedCount|Fixed}}</yd-badge></p>
+	    					</router-link>
+	    				</li>
+	    			</ul>
+	    		</div>
+	    	 	<div v-for="(item,index) in mySongs.tracks">
+	            	<div @click="play(item)" class="myLink">
+	            		<div class="left">
+	            			<span v-if="index<3" class="hot">0{{index+1}}</span>
+	            			<span v-else-if="index<9">0{{index+1}}</span>
+	            			<span v-else="index>=9">{{index+1}}</span>
+	            		</div>
+	            		<div class="right">
+	            			<div class="icon">
+	            				 <yd-icon name="play" size=".5rem" color="#FF685D" ></yd-icon>
+	            			</div>
+	            			<p>{{item.name}} </p>
+	            			<p style="color:rgba(213, 106, 73, 0.96)">
+	            				<small v-for="artist in item.artists">{{artist.name}}/</small>
+	            				<small>{{item.name}}</small>
+	            			</p>
+	            		</div>
+	            	</div>
+	            </div>
+	        </div>
+	    </div>
+	    <div v-show="!loadFinshed">
+	    	首次加载数据，速度可能会慢一点，请等待
+	    </div>
 	</div>
 </template>
 <script>
@@ -70,9 +75,23 @@ export default{
 	name:'Album',
 	created(){
 		let index = this.$route.params.index;
-		console.log(this.$route.params.index);
-		this.mySongs = this.$store.state.Rankstorage[index];
-		console.log(this.mySongs);
+		let AllSongs = this.$store.state.AllSongs;
+		let vm  = this;
+		this.mySongs = AllSongs.get(index);
+		//console.log(this.mySongs);
+		if(this.mySongs&&this.mySongs.tracks){
+			this.loadFinshed =true;
+		}else{
+			axios.get('/api/playlist/detail?id='+index).then(function(res){
+				vm.mySongs = res.data.playlist;
+				vm.$store.commit('setAllSongs',vm.mySongs);
+				console.log(vm.mySongs);
+				vm.loadFinshed = true;
+			}).catch(function(e){
+				console.log(e);
+			})
+
+		}
 	},
 	filters:{
 		Fixed(value){
@@ -86,6 +105,7 @@ export default{
 	data(){
 		return{
 			mySongs:[],
+			loadFinshed:false,
 		}
 	},
 	methods:{

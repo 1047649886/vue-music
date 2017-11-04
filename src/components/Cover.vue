@@ -12,7 +12,7 @@
 	        </yd-slider-item>
 	    </yd-slider>
 	    <div class="timeout">
-	    	<yd-countdown :time="9" timetype="second" format="{%s2}秒" done-text="0秒" :callback="jump"></yd-countdown>
+	    	<yd-countdown :time="4" timetype="second" format="{%s2}秒" done-text="0秒" :callback="jump"></yd-countdown>
 	    </div>
 	     
 	</div>
@@ -30,9 +30,14 @@
 			axios.all(requests).then(function(gets){
 		    	let result = gets.map( (res) => res.data.result);
 		    	vm.$store.commit('setRankstorage',result);
-		    	//console.log(result);
+		    	result.forEach(function(item){
+		    		// console.log(item);
+		    		vm.$store.commit('setAllSongs',item);
+		    	});
+		    	//console.log(this.$store.state.AllSongs);
+
 		    }).catch(function(err){
-		    	//console.log(err);
+		    	console.log(err);
 		    })
 		},
 		methods:{

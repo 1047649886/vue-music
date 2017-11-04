@@ -1,8 +1,8 @@
 <template>
     <div class="box">
-        <div  v-show="loadFinshed">
+        <div  v-if="loadFinshed">
             <h3 class="mytitle">官方榜</h3>
-            <div @click="Album(index)" v-for="(item,index) in myRankstorage" v-if="index<5">
+            <div @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index<5">
             <yd-flexbox   class="click">
                 <img :src="item.coverImgUrl"  alt="此处有图片" class="img">
                 <yd-flexbox-item class="songsBox">
@@ -11,7 +11,7 @@
             </yd-flexbox>
             </div>
             <h2 class="mytitle">全球榜</h2>
-            <div  @click="Album(index)" v-for="(item,index) in myRankstorage" v-if="index>=5">
+            <div  @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index>=5">
                 <div class="mylist" >
                     <img :src="item.coverImgUrl" alt="此处有图片" class="img2">
                     <span>{{item.name}}</span>
@@ -20,7 +20,7 @@
         </div>
 
         <div v-show="!loadFinshed">
-            数据正在加载中……
+            首次加载数据，速度可能会慢一点，请等待
         </div>
     </div>
 </template>
@@ -41,8 +41,6 @@ export default {
     methods:{
         Album(index){
             this.$router.push('/album/'+index);
-           // this.myRankstorage[index].
-            console.log(index);
         }
     },
     watch:{
@@ -51,19 +49,8 @@ export default {
             if(this.myRankstorage.length>0){
                 this.loadFinshed = true;
             }
-            // if(this.myRankstorage.length<=10){
-            //     let vm = this;
-            //     axios.get('/api/top/list?idx=10')
-            //     .then(function(res){
-            //         let result = res.data.result ;
-            //         vm.$store.commit('setRankstorage',result);
-            //         console.log(result);
-            //     });
-            // }
+    
         },
-        // loadFinshed:function(){
-        //     this.myRankstorage = this.$store.state.getters.getRankstorage;
-        // }
     }
 }
 </script>
