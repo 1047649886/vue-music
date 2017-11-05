@@ -44,7 +44,7 @@ export default{
 			this.songs[0] = AllSingle.get(vm.songs[0].id);
 			this.loadFinshed = true;
 			console.log(this.songs[0]);
-			console.log("客户端缓存了！");
+			console.log("客户端缓存了这首歌信息！");
 			return;
 		}
 
@@ -52,7 +52,6 @@ export default{
 		let author='';
 		let artists = Playing.artists?Playing.artists:Playing.ar;
 		artists.forEach( item => author=author+' '+item["name"]);
-		this.commentId = Playing.id;
 		let url=['/api/music/url?id=','/api/lyric?id='];
 		let request = url.map( item =>{
 			item+=vm.songs[0].id;
@@ -64,9 +63,10 @@ export default{
 			let musics = music.data.data[0];
 			let lyrics = lyric.data.lrc;
 
-			console.log(musics);
+			// console.log(musics);
 			vm.songs[0].title = Playing.name?Playing.name:Playing.al.name;
-			vm.songs[0].pic = Playing.album?Playing.album.picUrl:Playing.al.picUrl;
+			vm.songs[0].pic = Playing.album?(Playing.album.picUrl?Playing.album.picUrl:Playing.album.artist.img1v1Url)
+:(Playing.al.picUrl);
 			vm.songs[0].author = author;
 			vm.songs[0].url = musics.url;
 
@@ -85,7 +85,6 @@ export default{
 	},
 	data(){
 		return {
-			commentId:'',
 			loadFinshed:false,
 			changeLrc:false,
 			lrc:'',
@@ -102,23 +101,27 @@ export default{
 	        ]
 		}
 	},
+	mounted(){
+		this.watchPlayer();
+	},
 	methods:{
-		goBack(){
-			this.$router.go(-1);
-		},
-		check(){
-			let aplayer = this.$refs.player.control;
-			let content = aplayer.lrcContents;
-			content.style.display = 'none';
-			this.lrc = aplayer.lrc;
-			this.changeLrc = !this.changeLrc;
-			let vm = this;
+		watchPlayer(){
+			let vm  = this;
+			let aplayer = vm.$refs.player.control;
+			aplayer.on('play',function(){
+				vm.$store.state.PlayingId = vm.$route.params.id;
+				console.log('mounted:play');
+				console.log(vm.$route);
+			});
+
+			aplayer.on('pause',function(){
+				console.log('mounted:pause');
+			});
+
 			let img =document.getElementsByClassName('face-img')[0];
-			let audio = aplayer.audio;
 			let last = 0;
-			if(this.changeLrc){
-				aplayer.on('playing',function(){
-					let now =  audio.currentTime%15;
+			aplayer.on('playing',function(){
+					let now =  aplayer.audio.currentTime%15;
 					let deg =  Math.floor(now/15*360);
 					if(Math.abs(deg-last)>=30){
 						deg = last + 24;
@@ -131,10 +134,24 @@ export default{
 						vm.lrcIndex = aplayer.lrcIndex;
 					}
 				})
+		},
+		goBack(){
+			this.$router.go(-1);
+		},
+		check(){
+			this.changeLrc = !this.changeLrc;
+			let aplayer = this.$refs.player.control;
+			let content = aplayer.lrcContents;
+			if(content){
+				content.style.display = 'none';
 			}
+			if(this.changeLrc){
+				content.style.display = 'display';
+			}
+			if(this.lrc=='') this.lrc = aplayer.lrc;
 		},
 		getComment(){
-			this.$router.push('/comment/music/'+this.commentId);
+			this.$router.push('/comment/music/'+this.songs[0].id);
 		}
 	},
 }

@@ -49,7 +49,6 @@ export default {
             if(this.myRankstorage.length>0){
                 this.loadFinshed = true;
             }
-    
         },
     }
 }

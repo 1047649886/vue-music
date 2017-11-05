@@ -17,8 +17,6 @@ export default{
 </script>
 <style scoped>
 .page{
-
 	height: 440px;
-
 }
 </style>

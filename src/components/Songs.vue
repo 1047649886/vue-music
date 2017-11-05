@@ -41,7 +41,7 @@ export default{
 	data(){
 		return {
 			Songstorage:[],
-			loadFinshed:true
+			loadFinshed:false,
 		}
 	},
 	methods:{

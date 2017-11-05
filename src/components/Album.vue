@@ -81,6 +81,7 @@ export default{
 		//console.log(this.mySongs);
 		if(this.mySongs&&this.mySongs.tracks){
 			this.loadFinshed =true;
+			console.log("客户端缓存了这个专辑信息！");
 		}else{
 			axios.get('/api/playlist/detail?id='+index).then(function(res){
 				vm.mySongs = res.data.playlist;

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import FindMusic from '@/components/FindMusic'
-import UserCenter from '@/components/UserCenter'
 import Index from '@/components/Index'
 import Cover from '@/components/Cover'
 import Album from '@/components/Album'
@@ -29,12 +28,6 @@ export default new Router({
           component:FindMusic,
           meta:{keepAlive:true}
         },
-        {
-          path:'/userCenter',
-          name:'UserCenter',
-          component:UserCenter,
-          meta:{keepAlive:true}
-        }
       ]
     },
     {
@@ -53,7 +46,7 @@ export default new Router({
       path:'/music/:id',
       name:'PlayMusic',
       component:PlayMusic,
-      meta:{keepAlive:false}
+      meta:{keepAlive:false},
     },
     // {
     //   path:'/music/:id/playing',
