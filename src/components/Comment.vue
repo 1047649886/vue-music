@@ -20,7 +20,7 @@
 		    					</span>
 		    				</p>
 		    				<p class="time">{{item.time|parseTime}}
-		    				<p>{{item.content|emoji}}</p>
+		    				<p>{{item.content}}</p>
 		    			</div>
 			    </div>
 		     </div>
@@ -37,7 +37,7 @@
 	    					</span>
 	    				</p>
 	    				<p class="time">{{item.time|parseTime}}
-	    				<p>{{item.content|emoji}}</p>
+	    				<p>{{item.content}}</p>
 	    			</div>
 		    	</div>
 <!--         	<img slot="loadingTip" src="../../static/source/loading.svg"/> -->
@@ -57,15 +57,10 @@ export default{
 		vm.id = this.$route.params.id;
 		vm.kind = this.$route.params.kind;
 		axios.get('/api/comment/'+vm.kind+'?id='+this.id+'&limit=10').then( (res) =>{
-			console.log(res.data);
 			vm.comment = res.data;
 			vm.hotComments = res.data.hotComments;
 			vm.comments = res.data.comments;
-			// console.log(res.data);
-			// console.log(vm.hotComments);
-			// console.log(vm.comments);
 		}).catch( (error) =>console.log(error) )
-		console.log(this.id);
 	},
 	data(){
 		return{
@@ -78,6 +73,7 @@ export default{
 		}
 	},
 	filters:{
+		//格式化时间
 		parseTime(value){
 			let date =new Date(value);
 			let year = date.getFullYear();
@@ -110,10 +106,7 @@ export default{
 			if(day<10)day='0'+day;
 			return year+'年'+month+'月'+day+'日';
 		},
-		emoji(value){
-			// return value.replace(/^\[流泪\]$/g,'.');
-			return value;
-		},
+		//转化单位
 		Fixed(value){
 			if(value>10000){
 				return (parseInt(value)/10000).toFixed(1)+'万';
@@ -144,7 +137,6 @@ export default{
 				console.log(e);
 			} )
 			this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
-			//this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
 		}
 	}
 }

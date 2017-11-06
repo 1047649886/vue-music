@@ -10,7 +10,7 @@ export default new Vuex.Store({
 		PlayMusic:{},//正在播放的音乐
 		AllSongs:new Map(),//所有加载过的歌单
 		AllSingle:new Map(),//所有加载过的单曲
-		PlayingId:'',
+		SongId:'0000',
 	},
 	mutations:{
 		//储存排行榜专辑
@@ -35,8 +35,8 @@ export default new Vuex.Store({
 			let id = String(obj.id);
 			state.AllSingle.set(id,obj);
 		},
-		setPlayingId(state,id){
-			state.PlayingId = String(id);
+		setSongId(state,id){
+			state.SongId = String(id);
 		}
 	}
 })

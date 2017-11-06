@@ -2,7 +2,7 @@
     <div class="box">
         <div  v-if="loadFinshed">
             <h3 class="mytitle">官方榜</h3>
-            <div @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index<5">
+            <div @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index<3">
             <yd-flexbox   class="click">
                 <img :src="item.coverImgUrl"  alt="此处有图片" class="img">
                 <yd-flexbox-item class="songsBox">
@@ -11,7 +11,7 @@
             </yd-flexbox>
             </div>
             <h2 class="mytitle">全球榜</h2>
-            <div  @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index>=5">
+            <div  @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index>=3">
                 <div class="mylist" >
                     <img :src="item.coverImgUrl" alt="此处有图片" class="img2">
                     <span>{{item.name}}</span>
@@ -30,7 +30,7 @@ export default {
     name:'Rank',
     created(){
         this.myRankstorage = this.$store.state.Rankstorage;
-        console.log(this.myRankstorage);
+        this.loadFinshed = true;
     },
     data(){
         return {
@@ -43,14 +43,6 @@ export default {
             this.$router.push('/album/'+index);
         }
     },
-    watch:{
-        myRankstorage:function(){
-           // this.myRankstorage = this.$store.state.Rankstorage;
-            if(this.myRankstorage.length>0){
-                this.loadFinshed = true;
-            }
-        },
-    }
 }
 </script>
 <style scoped>

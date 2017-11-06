@@ -78,7 +78,6 @@ export default{
 		let AllSongs = this.$store.state.AllSongs;
 		let vm  = this;
 		this.mySongs = AllSongs.get(index);
-		//console.log(this.mySongs);
 		if(this.mySongs&&this.mySongs.tracks){
 			this.loadFinshed =true;
 			console.log("客户端缓存了这个专辑信息！");
@@ -86,7 +85,6 @@ export default{
 			axios.get('/api/playlist/detail?id='+index).then(function(res){
 				vm.mySongs = res.data.playlist;
 				vm.$store.commit('setAllSongs',vm.mySongs);
-				console.log(vm.mySongs);
 				vm.loadFinshed = true;
 			}).catch(function(e){
 				console.log(e);
@@ -96,7 +94,7 @@ export default{
 	},
 	filters:{
 		Fixed(value){
-			//console.log(parseInt(val,10));
+			//转化数字
 			if(value>10000){
 				return (parseInt(value)/10000).toFixed(1)+'万';
 			}
@@ -110,12 +108,14 @@ export default{
 		}
 	},
 	methods:{
+		//专辑的一些信息
 		message(){
 			this.$dialog.notify({
                     mes: this.mySongs.description,
                     timeout: 2500,
             });
 		},
+		//播放歌曲
 		play(item){
 			let url = '/music/'+item.id;
 			this.$store.commit('setPlayMusic',item);

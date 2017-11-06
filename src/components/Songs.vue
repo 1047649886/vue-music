@@ -2,11 +2,11 @@
 
 	<div class="box">
 		<div v-if="loadFinshed">
-			<img src="../../static/jpg/00.png" alt="" height="230px" width="100%">
+			<img src="../../static/img/00.png" alt="" height="230px" width="100%">
 			<yd-infinitescroll  :callback="loadList" ref="infinitescrollDemo">
 				<yd-list theme="1" slot="list">
 		        	<yd-list-item v-for="item in Songstorage" type="div">
-		            	<img slot="img" :src="item.coverImgUrl" @click="test(item.id)">
+		            	<img slot="img" :src="item.coverImgUrl" @click="Album(item.id)">
 		           		<span slot="title">{{item.name}}</span>
 		        	</yd-list-item>
 		    	</yd-list>
@@ -49,17 +49,10 @@ export default{
 			this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
 			this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
 		},
-		test(id){
+		Album(id){
 			this.$router.push('/album/'+id);
 		}
 	},
-	watch:{
-		// Songstorage:function(){
-		// 	if(this.Songstorage.length>0){
-		// 		this.loadFinshed = true;
-		// 	}
-		// }
-	}
 }
 </script>
 <style scoped>

@@ -11,12 +11,14 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    //封面
     {
       path: '/',
       name: 'Cover',
       component: Cover,
       meta:{keepAlive:true}
     },
+    //首页
     {
     	path:'/index',
     	name:'Index',
@@ -30,30 +32,26 @@ export default new Router({
         },
       ]
     },
+    //专辑
     {
       path:'/album/:index',
       name:'Album',
       component:Album,
       meta:{keepAlive:false}
     },
+    //评论
     {
       path:'/comment/:kind/:id/',
       name:'Comment',
       component:Comment,
       meta:{keepAlive:false}
     },
+    //播放歌曲
     {
       path:'/music/:id',
       name:'PlayMusic',
       component:PlayMusic,
       meta:{keepAlive:false},
     },
-    // {
-    //   path:'/music/:id/playing',
-    //   name:'PlayMusic',
-    //   component:PlayingMusic,
-    //   meta:{keepAlive:true}
-    // },
-
   ]
 })

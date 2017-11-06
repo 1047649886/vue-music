@@ -78,12 +78,10 @@ export default {
 		}
 	},
 	methods:{
-		test(){
-			console.log(1);
-		},
 		cancle(){
 			this.search = '';
 		},
+		//查找歌曲
 		searchMusic(){
 			if(this.search=='')return;
 			console.log(this.search);
@@ -101,17 +99,16 @@ export default {
 			 console.log(e)
 			})
 		},
+		//歌曲
 		play(item){
 			let url = '/music/'+item.id;
 			this.$store.commit('setPlayMusic',item);
 			this.$router.push(url);
 		},
+		//专辑
 		Album(index){
             this.$router.push('/album/'+index);
         }
-	},
-	watch:{
-
 	}
 }
 

@@ -75,6 +75,7 @@ export default{
 			}else{
 				vm.songs[0].lrc = '[00:00.00]暂无歌词\n';
 			}
+			console.log(vm.songs[0]);
 			console.log(vm.$store.state.AllSingle);
 			vm.$store.commit('setAllSingle',vm.songs[0]);
 			vm.loadFinshed = true;
@@ -87,6 +88,7 @@ export default{
 		return {
 			loadFinshed:false,
 			changeLrc:false,
+			control:false,
 			lrc:'',
 			lrcIndex:'',
 			songs:[
@@ -101,54 +103,45 @@ export default{
 	        ]
 		}
 	},
-	mounted(){
-		this.watchPlayer();
-	},
 	methods:{
-		watchPlayer(){
-			let vm  = this;
-			let aplayer = vm.$refs.player.control;
-			aplayer.on('play',function(){
-				vm.$store.state.PlayingId = vm.$route.params.id;
-				console.log('mounted:play');
-				console.log(vm.$route);
-			});
-
-			aplayer.on('pause',function(){
-				console.log('mounted:pause');
-			});
-
-			let img =document.getElementsByClassName('face-img')[0];
-			let last = 0;
-			aplayer.on('playing',function(){
-					let now =  aplayer.audio.currentTime%15;
-					let deg =  Math.floor(now/15*360);
-					if(Math.abs(deg-last)>=30){
-						deg = last + 24;
-						img.style.transform ='rotate('+deg+'deg)';
-						img.style.transition = 'all 1s linear';
-						if(deg<24)deg=360;
-						last = deg%360;
-					}
-					if(vm.lrcIndex != aplayer.lrcIndex){
-						vm.lrcIndex = aplayer.lrcIndex;
-					}
-				})
-		},
 		goBack(){
 			this.$router.go(-1);
 		},
 		check(){
+			let vm = this;
 			this.changeLrc = !this.changeLrc;
 			let aplayer = this.$refs.player.control;
 			let content = aplayer.lrcContents;
-			if(content){
+			//隐藏歌词
+			if(content&&this.changeLrc){
 				content.style.display = 'none';
 			}
-			if(this.changeLrc){
-				content.style.display = 'display';
+			//显示歌词
+			if(!this.changeLrc){
+				content.style.display = 'block';
 			}
+			//填充歌词
 			if(this.lrc=='') this.lrc = aplayer.lrc;
+			//监听事件
+			if(!this.control){
+				this.control = true;
+				let img =document.getElementsByClassName('face-img')[0];
+				let last = 0;
+				aplayer.on('playing',function(){
+						let now =  aplayer.audio.currentTime%15;
+						let deg =  Math.floor(now/15*360);
+						if(Math.abs(deg-last)>=30){
+							deg = last + 24;
+							img.style.transform ='rotate('+deg+'deg)';
+							img.style.transition = 'all 1s linear';
+							if(deg<24)deg=360;
+							last = deg%360;
+						}
+						if(vm.lrcIndex != aplayer.lrcIndex){
+							vm.lrcIndex = aplayer.lrcIndex;
+						}
+					})
+			}
 		},
 		getComment(){
 			this.$router.push('/comment/music/'+this.songs[0].id);
