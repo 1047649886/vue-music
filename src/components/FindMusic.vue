@@ -11,7 +11,7 @@
 		        <yd-flexbox-item>
 		        	 <div class="mycenter" >
 			        	 <yd-cell-item style="height:.6rem;" >
-			        	 	<yd-input slot="left"  placeholder="搜索歌词、歌曲" v-model="search" ></yd-input >
+			        	 	<yd-input slot="left"  placeholder="搜索歌曲、专辑" v-model="search" ></yd-input >
 			        	</yd-cell-item>
 		       		</div>
 		        </yd-flexbox-item>

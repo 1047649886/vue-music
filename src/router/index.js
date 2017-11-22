@@ -7,7 +7,6 @@ import Album from '@/components/Album'
 import Comment from '@/components/Comment'
 import PlayMusic from '@/components/PlayMusic'
 Vue.use(Router)
-
 export default new Router({
   mode: 'history',
   routes: [

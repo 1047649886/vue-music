@@ -2,7 +2,7 @@
     <div class="box">
         <div  v-if="loadFinshed">
             <h3 class="mytitle">官方榜</h3>
-            <div @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index<3">
+            <div @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index<2">
             <yd-flexbox   class="click">
                 <img :src="item.coverImgUrl"  alt="此处有图片" class="img">
                 <yd-flexbox-item class="songsBox">
@@ -11,7 +11,7 @@
             </yd-flexbox>
             </div>
             <h2 class="mytitle">全球榜</h2>
-            <div  @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index>=3">
+            <div  @click="Album(item.id)" v-for="(item,index) in myRankstorage" v-if="index>=2">
                 <div class="mylist" >
                     <img :src="item.coverImgUrl" alt="此处有图片" class="img2">
                     <span>{{item.name}}</span>
@@ -42,7 +42,7 @@ export default {
         Album(index){
             this.$router.push('/album/'+index);
         }
-    },
+    }
 }
 </script>
 <style scoped>

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-
 export default new Vuex.Store({
 	state:{
 		list:[1,2],
@@ -10,7 +9,6 @@ export default new Vuex.Store({
 		PlayMusic:{},//正在播放的音乐
 		AllSongs:new Map(),//所有加载过的歌单
 		AllSingle:new Map(),//所有加载过的单曲
-		SongId:'0000',
 	},
 	mutations:{
 		//储存排行榜专辑
@@ -34,9 +32,6 @@ export default new Vuex.Store({
 		setAllSingle(state,obj){
 			let id = String(obj.id);
 			state.AllSingle.set(id,obj);
-		},
-		setSongId(state,id){
-			state.SongId = String(id);
 		}
 	}
 })
